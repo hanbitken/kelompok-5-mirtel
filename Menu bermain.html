@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="Styke.css">
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="topBar">
+
+        </div>
+        <div id="statusBarContainer">
+            <div style="width: 60%; height: 80%; margin:auto; max-width: 350px;">
+                <div class="columns up">
+                    <div class="imageIcon">
+                        <img src="Gambar/Hunger.png">
+                    </div>
+                    <div class="progressBar">
+                        <div class="progress" id="progressEat"></div>
+                    </div>
+                </div>
+                <div class="columns up" style="margin-right:0%">
+                    <div class="imageIcon">
+                        <img src="Gambar/Bed.png">
+                    </div>
+                    <div class="progressBar">
+                        <div class="progress" id="progressSleep"></div>
+                    </div>
+                </div>
+                <div class="break"></div>
+                <div class="columns up">
+                    <div class="imageIcon">
+                        <img src="Gambar/Controller.png">
+                    </div>
+                    <div class="progressBar">
+                        <div class="progress" id="progressPlay"></div>
+                    </div>
+                </div>
+                <div class="columns up" style="margin-right:0%">
+                    <div class="imageIcon">
+                        <img src="Gambar/Medicine.png">
+                    </div>
+                    <div class="progressBar">
+                        <div class="progress" id="progressHealth"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 60%; height: 80%; margin:auto; text-align: center;">
+                level <a id="leveling">[fetching data]</a>
+            </div>
+        </div>
+        <div id="timeContainer">
+            <div id="when">
+                <a>Good</a> <a id="state">....</a> <a id="currentname"></a>
+            </div>
+            <div id="time">
+                .....
+            </div>
+        </div>
+
+        <div class="charContainer" style="background-color: brown;">
+            <div style="height: 100%; width: fit-content; margin: auto;">
+                <img src="Gambar/Game.png" id="currentCharv">
+            </div>
+            <div id="canvas"></div>
+        </div>
+        <div id="controls">
+            <div id="button-group">
+                <button id="atas" class="round">&#8593;</button>
+            </div>
+            <div id="button-group">
+                <button id="kiri" class="round">&#8592;</button>
+                <button id="kanan" class="round">&#8594;</button>
+            </div>
+            <div id="button-group">
+                <button id="bawah" class="round bottom">&#8595;</button>
+            </div>
+        </div>
+
+        <div id="selectContainer">
+            <div style="width: 40%; height: 100%; margin:auto;">
+                <div class="columns">
+                    <button class="buttons" id="eatButton">Eat</button>
+                </div>
+
+                <div class="columns">
+                    <button class="buttons" id="sleepButton">Sleep</button>
+                </div>
+                <div class="break"></div>
+                <div class="columns">
+                    <button class="buttons" id="return">Return</button>
+                </div>
+                <div class="columns">
+                    <button class="buttons" id="medicineButton">Medicine</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="Program.js"></script>
+
+    <script>
+        returnh = document.getElementById('return');
+        returnh.addEventListener("click", returnhome)
+
+        function returnhome(){
+        location.href ="Menu Utama.html"
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            var currentchar2 = document.querySelector('#currentCharv');
+            var x = 0;
+            var y = 0;
+
+            function moveUp() {
+                if (y > 0) {
+                    y -= 10;
+                    currentchar2.style.top = y + 'px';
+                }
+            }
+
+            function moveDown() {
+                if (y < (window.innerHeight * 0.55)) {
+                    y += 10;
+                    currentchar2.style.top = y + 'px';
+                }
+            }
+
+            function moveLeft() {
+                if (x > 0) {
+                    x -= 10;
+                    currentchar2.style.left = x + 'px';
+                }
+            }
+
+            function moveRight() {
+                if (x < (window.innerWidth * 0.77)) {
+                    x += 10;
+                    currentchar2.style.left = x + 'px';
+                }
+            }
+
+            document.querySelector('#atas, #up-arrow').addEventListener('click', moveUp);
+            document.querySelector('#bawah, #down-arrow').addEventListener('click', moveDown);
+            document.querySelector('#kiri, #left-arrow').addEventListener('click', moveLeft);
+            document.querySelector('#kanan, #right-arrow').addEventListener('click', moveRight);
+
+            document.addEventListener('keydown', function (e) {
+                switch (e.keyCode) {
+                    case 87: // Tombol w
+                        moveUp();
+                        break;
+                    case 65: // Tombol a
+                        moveLeft();
+                        break;
+                    case 68: // Tombol d
+                        moveRight();
+                        break;
+                    case 83: // Tombol s
+                        moveDown();
+                        break;
+                    default:
+                        break;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
