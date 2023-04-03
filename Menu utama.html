@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="Styke.css">
+    </head>
+    <body style="background-color:rgb(254, 255, 184)">
+        <div class="container">
+            <div class="topBar">
+
+            </div>
+            <div id="statusBarContainer">
+                <div style="width: 60%; height: 80%; margin:auto; max-width: 350px;">
+                    <div class="columns up">
+                        <div class="imageIcon">
+                            <img src="Gambar/Hunger.png">
+                        </div>
+                        <div class="progressBar">
+                            <div class="progress" id="progressEat"></div>
+                        </div>
+                    </div>
+                    <div class="columns up" style="margin-right:0%">
+                        <div class="imageIcon">
+                            <img src="Gambar/Bed.png">
+                        </div>
+                        <div class="progressBar">
+                            <div class="progress" id="progressSleep"></div>
+                        </div>
+                    </div>
+                    <div class="break"></div>
+                    <div class="columns up">
+                        <div class="imageIcon">
+                            <img src="Gambar/Controller.png">
+                        </div>
+                        <div class="progressBar">
+                            <div class="progress" id="progressPlay"></div>
+                        </div>
+                    </div>
+                    <div class="columns up" style="margin-right:0%">
+                        <div class="imageIcon">
+                            <img src="Gambar/Medicine.png">
+                        </div>
+                        <div class="progressBar">
+                            <div class="progress" id="progressHealth"></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 60%; height: 80%; margin:auto; text-align: center;">
+                    level <a id="leveling">[fetching data]</a>
+                </div>
+            </div>
+            <div id="timeContainer">
+                <div id="when">
+                    <a>Good</a> <a id="state">....</a> <a id="currentname"></a>
+                </div>
+                <div id="time">
+                    .....
+                </div>
+            </div>
+            
+            <div class="charContainer">
+                <div style="height: 100%; width: fit-content; margin: auto;">
+                    <img src="Gambar/Idle.png" id="currentChar">
+                </div>
+                
+            </div>
+
+            <div id="selectContainer">
+                <div style="width: 40%; height: 100%; margin:auto;">
+                    <div class="columns">
+                        <button class ="buttons" id="eatButton">Eat</button>
+                    </div>
+                        
+                    <div class="columns">
+                        <button class ="buttons" id="sleepButton">Sleep</button>
+                    </div>
+                    <div class="break"></div>
+                    <div class="columns">
+                        <button class ="buttons" id="playButton">Play</button>
+                    </div>
+                    <div class="columns">
+                        <button class ="buttons" id="medicineButton">Medicine</button>
+                </div>
+                </div>
+            </div>
+
+        </div>
+        <script src="Program.js"></script>
+        
+        <script>
+            j = 3;
+            E = localStorage.getItem('E');
+            S = localStorage.getItem('S');
+            P = localStorage.getItem('P');
+            H = localStorage.getItem('H');
+            Exp = localStorage.getItem('Exp');
+            var sState = 0;
+
+            medicineButton = document.getElementById('medicineButton');
+            medicineButton.addEventListener("click", Meds)
+            eatButton = document.getElementById('eatButton');
+            eatButton.addEventListener("click", eatFood);
+            sleepButton = document.getElementById('sleepButton');
+            sleepButton.addEventListener("click", sleepState)
+            choice = localStorage.getItem('choose');
+            eat = document.getElementById('progressEat');
+            sleep = document.getElementById('progressSleep');
+            play = document.getElementById('progressPlay');
+            health = document.getElementById('progressHealth');
+            
+            
+
+            function sleepState(){
+                if (sState <= 0){
+                    sState++;
+                    if (choice == 0){
+                        currentchar.setAttribute("src", "Gambar/Sleep.png");
+                    }else{
+                        currentchar.setAttribute("src", "Gambar/SleepSwag.png");
+                    }
+                    console.log("sleep");
+                }else{
+                    sState--;
+                    if (choice == 0){
+                        currentchar.setAttribute("src", "Gambar/Idle.png");
+                    }else{
+                        currentchar.setAttribute("src", "Gambar/IdleSwag.png");
+                    }
+                    console.log("awake");
+                }
+            }
+
+            function reset(){
+                j = 3;
+            }
+            
+            eat.style.width = E + "%";
+            sleep.style.width = S + "%";
+            play.style.width = P + "%";
+            health.style.width = H + "%";
+            if(Exp > 80){
+                    document.getElementById('leveling').innerHTML = "max";
+            }else if(Exp > 40){
+                    document.getElementById('leveling').innerHTML = 3;
+                    }else if (Exp > 20){
+                        document.getElementById('leveling').innerHTML = 2;
+                    }else if(Exp > 10){
+                        document.getElementById('leveling').innerHTML = 1;
+                    }else if(Exp <=10){
+                        document.getElementById('leveling').innerHTML = 0;
+                    }
+                
+            setInterval(decrement, 1000);
+            function decrement(){
+                if((E > 0)&&(S > 0)&&(P > 0)&&(H > 0)){
+                    Exp++;
+                    if(Exp > 80){
+                        document.getElementById('leveling').innerHTML = "max";
+                        localStorage.setItem('Exp', Exp);
+                    }else if(Exp > 40){
+                        document.getElementById('leveling').innerHTML = 3;
+                        localStorage.setItem('Exp', Exp);
+                    }else if (Exp > 20){
+                        document.getElementById('leveling').innerHTML = 2;
+                        localStorage.setItem('Exp', Exp);
+                    }else if(Exp > 10){
+                        document.getElementById('leveling').innerHTML = 1;
+                        localStorage.setItem('Exp', Exp);
+                    }else if(Exp <=10){
+                        document.getElementById('leveling').innerHTML = 0;
+                    }
+                }
+                if (sState == 0){
+                    if(j > 0){
+                        j--;
+                    }
+                    if (j == 0){
+                        if (E > 0){
+                            E--;
+                            eat.style.width = E + "%";
+                            localStorage.setItem('E', E);
+                        }
+                        
+                        if (S > 0){
+                            S--;
+                            sleep.style.width = S + "%";
+                            localStorage.setItem('S', S);
+                        }
+                        
+                        if (P > 0){
+                            P--;
+                            play.style.width = P + "%";
+                            localStorage.setItem('P', P);
+                        }
+                        
+                        if (H > 0){
+                            H--;
+                            health.style.width = H + "%";
+                            localStorage.setItem('H', H);
+                        }
+                        
+                    }
+                }else{
+                    if (S <= 100){
+                            S = S + 3;
+                            if (S > 100){
+                                S = S - (S%100);
+                            }
+                            sleep.style.width = S + "%";
+                            localStorage.setItem('S', S);
+
+                        }
+                    if (S > 0){
+                            S = S - 0.5;
+                            sleep.style.width = S + "%";
+                            localStorage.setItem('S', S);
+                        }
+                        
+                    if (P > 0){
+                            P = P - 0.5;
+                            play.style.width = P + "%";
+                            localStorage.setItem('P', P);
+                        }
+                        
+                    if (H > 0){
+                            H = H - 0.5;
+                            health.style.width = H + "%";
+                            localStorage.setItem('H', H);
+                        }
+                        
+                }
+            }
+
+
+
+            function eatFood(){
+                if (E <= 100){
+                    E = E + 5;
+                    if (E > 100){
+                        E = E - (E%100);
+                    }
+                    localStorage.setItem('E', E);
+                    eat.style.width = E + "%";
+                    reset();
+                    if (choice == 0){
+                        currentchar.setAttribute("src", "Gambar/Eat.png");
+                    }else{
+                        currentchar.setAttribute("src", "Gambar/EatSwag.png");
+                    }
+                    sState = 0;
+                    setTimeout(eatFoodImage, 3000);
+                }
+            }
+
+            function eatFoodImage(){
+                if (choice == 0){
+                        currentchar.setAttribute("src", "Gambar/Idle.png");
+                    }else{
+                        currentchar.setAttribute("src", "Gambar/IdleSwag.png");
+                    }
+            }
+            function Meds(){
+                if (H <= 100){
+                    H = H + 25;
+                    if (H > 100){
+                        H = H - (H%100);
+                    }
+                    localStorage.setItem('H', H);
+                    health.style.width = H + "%";
+                    reset();
+                     
+                    sState = 0;
+                }
+            }
+        </script>
+    </body>
+</html>
