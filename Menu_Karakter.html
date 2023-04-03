@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="Styke.css">
+    </head>
+    <body>
+        <div>
+            <div class="container">
+                <div class="topBar">
+
+                </div>
+                <div class="charContainer" style="margin-top: 5%;min-height: 300px ;">
+                    <div style="height:100%; width:fit-content; margin:auto; display: flex;">
+                        <div style="height:100%; width:6vh; min-width: 50px; display: inline-block;">
+                            <button id="leftButton" style="width:100%; aspect-ratio: 1/2; padding: 0px; margin-top: 15vh;">
+                                <image src="Gambar/arrow.png" style="width: 100%; transform: rotate(180deg);"></image>
+                            </button>
+                        </div>
+                        <div class="charContainer" style="height: 100%; width: auto;">
+                            <div style="height:100%; width: 45%;">
+                                <img src="Gambar/Idle.png" id="charImage" style="height: 100%;width: auto;">
+                            </div>
+                        </div>
+                        <div style="height:100%; width:6vh;  min-width: 50px;display: inline-block;">
+                            <button id="rightButton"  style="width:100%; aspect-ratio: 1/2; padding: 0px; margin-top: 15vh;">
+                                <image src="Gambar/arrow.png" style="width: 100%;"></image>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="nameContainer" style="margin-top: 1%; min-height: 100px;">
+                    <div class="insertName">
+                        <label>Insert you name here</label><br>
+                        <input type="text" id="inputC">
+                    </div>
+                    <div class="pressButton">
+                        <button id="menuButton">Play</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <script>
+            var j, curr=0;
+            var backgroundImage = 'myrt_idle.png';
+            var charImage = document.getElementById('charImage');
+            var leftButton = document.getElementById('leftButton');
+            var rightButton = document.getElementById('rightButton');
+            
+
+            leftButton.addEventListener("click", changeImage);
+            rightButton.addEventListener("click", changeImage);
+
+            function changeImage() {
+                console.log("function dipanggil");
+                if (curr == 0) {
+                    curr += 1;
+                    charImage.setAttribute("src", "Gambar/IdleSwag.png");
+                } else if (curr == 1) {
+                    curr -= 1;
+                    charImage.setAttribute("src", "Gambar/Idle.png");
+                }
+            }
+            j = curr;
+            playButton = document.getElementById('menuButton');
+            playButton.addEventListener("click", toMainMenu);
+
+            function toMainMenu(){
+          
+            input = document.getElementById('inputC').value;
+            localStorage.setItem('choose', curr);
+            localStorage.setItem('name', input);
+            localStorage.setItem('i', 0);
+            localStorage.setItem('Exp', 0);
+            charImage.style.background = "url('" + backgroundImage + "')"; 
+            location.href = "Menu Utama.html"; 
+
+            E = localStorage.setItem('E', 100);
+            S = localStorage.setItem('S', 50);
+            P = localStorage.setItem('P', 100);
+            H = localStorage.setItem('H', 100);
+            
+            }
+             </script>    
+    </body>
+</html>
